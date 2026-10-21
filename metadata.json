@@ -1,0 +1,6 @@
+{
+  "name": "Archeon Studio",
+  "description": "Architecture & Interior Design Studio in Georgia. From Concept to Real Space — იდეიდან რეალურ სივრცემდე.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
