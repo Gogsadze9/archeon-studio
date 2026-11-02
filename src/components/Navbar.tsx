@@ -25,6 +25,7 @@ export function Navbar({ lang, onToggleLang, activeSection, onNavigate }: Navbar
 
   const navLinks = [
     { id: 'hero', label: t.home },
+    { id: 'portfolio', label: t.portfolio },
     { id: 'services', label: t.services },
     { id: 'about', label: t.about },
     { id: 'team', label: t.team },

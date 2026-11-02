@@ -6,6 +6,8 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { Portfolio } from './components/Portfolio';
+import { ProjectModal } from './components/ProjectModal';
 import { Services } from './components/Services';
 import { About } from './components/About';
 import { Team } from './components/Team';
@@ -13,6 +15,7 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { MobileQuickBar } from './components/MobileQuickBar';
 import { Language, translations } from './data/translations';
+import { ProjectItem } from './data/projects';
 import { siteConfig } from './data/siteConfig';
 import { Phone } from 'lucide-react';
 import { WhatsAppIcon } from './components/icons/MessengerIcon';
@@ -20,15 +23,20 @@ import { WhatsAppIcon } from './components/icons/MessengerIcon';
 export default function App() {
   // Default language is Georgian ('ka') as requested
   const [lang, setLang] = useState<Language>(() => {
-    const saved = localStorage.getItem('archeon_lang');
-    return (saved === 'en' || saved === 'ka') ? saved : 'ka';
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('archeon_lang');
+      return (saved === 'en' || saved === 'ka') ? saved : 'ka';
+    }
+    return 'ka';
   });
 
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [inquiredService, setInquiredService] = useState<string | undefined>(undefined);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
   // Sync language with localStorage, html lang attribute & SEO tags
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     localStorage.setItem('archeon_lang', lang);
     document.documentElement.lang = lang;
     document.title = lang === 'ka'
@@ -46,9 +54,24 @@ export default function App() {
     }
   }, [lang]);
 
+  // Handle route based scrolling on initial mount (for prerendered routes /about, /services, etc.)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const path = window.location.pathname.replace(/\/$/, '');
+    const segment = path.split('/').pop()?.toLowerCase();
+    if (segment) {
+      if (segment === 'portfolio' || segment === 'projects') {
+        setTimeout(() => scrollToSection('portfolio'), 100);
+      } else if (['services', 'about', 'team', 'contact'].includes(segment)) {
+        setTimeout(() => scrollToSection(segment), 100);
+      }
+    }
+  }, []);
+
   // Track active section on scroll
   useEffect(() => {
-    const sections = ['hero', 'services', 'about', 'team', 'contact'];
+    if (typeof window === 'undefined') return;
+    const sections = ['hero', 'portfolio', 'services', 'about', 'team', 'contact'];
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
       for (const sectionId of sections) {
@@ -73,6 +96,7 @@ export default function App() {
   };
 
   const scrollToSection = (id: string) => {
+    if (typeof window === 'undefined') return;
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -100,30 +124,45 @@ export default function App() {
         {/* 1. Hero Section */}
         <Hero
           lang={lang}
-          onExploreClick={() => scrollToSection('services')}
+          onExploreClick={() => scrollToSection('portfolio')}
           onContactClick={() => scrollToSection('contact')}
         />
 
-        {/* 2. Services Section */}
+        {/* 2. Portfolio / Projects Section */}
+        <Portfolio
+          lang={lang}
+          onSelectProject={(project) => setSelectedProject(project)}
+        />
+
+        {/* 3. Services Section */}
         <Services
           lang={lang}
           onInquireService={handleInquireService}
         />
 
-        {/* 3. About Us Section */}
+        {/* 4. About Us Section */}
         <About
           lang={lang}
           onConsultationClick={() => scrollToSection('contact')}
         />
 
-        {/* 4. Team Section */}
+        {/* 5. Team Section */}
         <Team lang={lang} />
 
-        {/* 5. Contact Section */}
+        {/* 6. Contact Section */}
         <Contact
           lang={lang}
           preselectedService={inquiredService}
         />
+
+        {/* Modal for project preview */}
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            lang={lang}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
       </main>
 
       {/* Floating Desktop Quick Contact Bubble */}
