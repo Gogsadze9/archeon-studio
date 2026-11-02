@@ -74,7 +74,7 @@ export function Portfolio({ lang, onSelectProject }: PortfolioProps) {
                   }`}>
                     <img
                       src={project.primaryImage}
-                      alt={project.title[lang]}
+                      alt={`${project.title[lang]} – ${project.categoryLabel[lang]}, Archeon Studio თბილისი`}
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-103"
                       loading="lazy"

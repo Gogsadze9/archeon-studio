@@ -27,13 +27,23 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [inquiredService, setInquiredService] = useState<string | undefined>(undefined);
 
-  // Sync language with localStorage & html lang attribute
+  // Sync language with localStorage, html lang attribute & SEO tags
   useEffect(() => {
     localStorage.setItem('archeon_lang', lang);
     document.documentElement.lang = lang;
     document.title = lang === 'ka'
-      ? 'Archeon Studio – არქიტექტურა და ინტერიერის დიზაინი | იდეიდან რეალურ სივრცემდე'
-      : 'Archeon Studio – Architecture & Interior Design | From Concept to Real Space';
+      ? 'Archeon Studio – არქიტექტურული სტუდია & ინტერიერის დიზაინი თბილისი'
+      : 'Archeon Studio – Architectural Studio & Interior Design Tbilisi';
+
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        'content',
+        lang === 'ka'
+          ? 'Archeon Studio – წამყვანი არქიტექტურული სტუდია და ინტერიერის დიზაინი თბილისში. სივრცის დაგეგმარება, ლაზერული აზომვა და 3D ვიზუალიზაცია.'
+          : 'Archeon Studio – Leading architecture & interior design studio in Tbilisi, Georgia. Space planning, laser survey, 3D visualization, and technical blueprints.'
+      );
+    }
   }, [lang]);
 
   // Track active section on scroll

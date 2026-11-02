@@ -47,7 +47,7 @@ export function Services({ lang, onInquireService }: ServicesProps) {
                   <div className={`lg:col-span-5 h-72 lg:h-96 w-full overflow-hidden bg-stone-100 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
                     <img
                       src={service.image}
-                      alt={service.title[lang]}
+                      alt={`${service.title[lang]} – არქიტექტურული სერვისები თბილისში, Archeon Studio`}
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-103"
                       loading="lazy"

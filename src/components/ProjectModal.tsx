@@ -72,9 +72,10 @@ export function ProjectModal({ project, lang, onClose }: ProjectModalProps) {
             <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-lg overflow-hidden bg-stone-200 border border-stone-200">
               <img
                 src={currentImages[activeImageIndex]}
-                alt={`${project.title[lang]} - image ${activeImageIndex + 1}`}
+                alt={`${project.title[lang]} – ${project.categoryLabel[lang]}, Archeon Studio (${activeImageIndex + 1}/${currentImages.length})`}
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover transition-opacity duration-300"
+                loading="lazy"
               />
               <div className="absolute bottom-3 right-3 px-2.5 py-1 text-xs bg-stone-900/80 text-stone-200 backdrop-blur-xs rounded">
                 {activeImageIndex + 1} / {currentImages.length}
@@ -94,9 +95,10 @@ export function ProjectModal({ project, lang, onClose }: ProjectModalProps) {
                   >
                     <img
                       src={img}
-                      alt={`Thumbnail ${idx + 1}`}
+                      alt={`${project.title[lang]} მინიატურა ${idx + 1}`}
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </button>
                 ))}
@@ -108,12 +110,12 @@ export function ProjectModal({ project, lang, onClose }: ProjectModalProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-2">
             {/* Left 2 Cols: Title & Descriptions */}
             <div className="lg:col-span-2 space-y-4">
-              <h2
+              <h3
                 id="modal-project-title"
                 className="font-serif-heading text-2xl sm:text-3xl text-stone-900 font-medium tracking-tight"
               >
                 {project.title[lang]}
-              </h2>
+              </h3>
 
               <p className="text-stone-700 leading-relaxed font-light text-base text-pretty">
                 {project.fullDescription[lang]}

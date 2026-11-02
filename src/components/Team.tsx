@@ -43,7 +43,7 @@ export function Team({ lang }: TeamProps) {
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-stone-100">
                   <img
                     src={member.image}
-                    alt={member.name[lang]}
+                    alt={`${member.name[lang]} – ${member.role[lang]}, Archeon Studio`}
                     referrerPolicy="no-referrer"
                     className={`w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 ${member.imageClass || ''}`}
                     loading="lazy"

@@ -50,7 +50,9 @@ export function About({ lang, onConsultationClick }: AboutProps) {
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden border border-stone-200 shadow-sm bg-stone-100">
               <img
                 src="/assets/aistudio/images/interior_living_travertine_1792413465592.jpg"
-                alt="Archeon Studio interior design and architectural materiality"
+                alt={lang === 'ka'
+                  ? 'Archeon Studio – ინტერიერის დიზაინი თბილისი, ტრავერტინის ბუნებრივი ქვა და მინიმალისტური ესთეტიკა'
+                  : 'Archeon Studio – Interior design in Tbilisi featuring natural travertine stone and warm architectural minimalism'}
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
                 loading="lazy"

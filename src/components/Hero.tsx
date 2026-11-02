@@ -51,7 +51,9 @@ export function Hero({ lang, onExploreClick, onContactClick }: HeroProps) {
           <div className="aspect-[16/9] lg:aspect-[21/9] w-full overflow-hidden">
             <img
               src="/assets/aistudio/images/hero_penthouse_minimalist_daylight_1792415040750.jpg"
-              alt="Archeon Studio contemporary minimalist architectural space"
+              alt={lang === 'ka'
+                ? 'Archeon Studio – თანამედროვე მინიმალისტური არქიტექტურა და ინტერიერის დიზაინი თბილისში'
+                : 'Archeon Studio – Contemporary minimalist architectural space and interior design in Tbilisi'}
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-102"
               loading="eager"
